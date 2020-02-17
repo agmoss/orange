@@ -18,12 +18,15 @@ import Random
 
 
 type alias Model =
-    { randRgb : Int }
+    { randRed : Int
+    , randGreen : Int
+    , randBlue : Int
+    }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model 1, Cmd.none )
+    ( Model 1 1 1, Cmd.none )
 
 
 
@@ -31,8 +34,8 @@ init _ =
 
 
 type Msg
-    = UpdateNumber
-    | CreateNewNumber Int
+    = UpdateRgbCode
+    | NewRgbCode Model
 
 
 oneTo255 : Random.Generator Int
@@ -43,11 +46,21 @@ oneTo255 =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        UpdateNumber ->
-            ( model, Random.generate CreateNewNumber oneTo255 )
+        UpdateRgbCode ->
+            ( model
+            , Random.generate NewRgbCode rgbCodeGenerator
+            )
 
-        CreateNewNumber val ->
-            ( Model val, Cmd.none )
+        NewRgbCode r ->
+            ( r, Cmd.none )
+
+
+rgbCodeGenerator : Random.Generator Model
+rgbCodeGenerator =
+    Random.map3 (\a b c -> Model a b c)
+        (Random.int 50 350)
+        (Random.int 50 350)
+        (Random.int 50 350)
 
 
 
@@ -58,9 +71,9 @@ view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
-        , h1 [ css [ color (rgb model.randRgb 250 250) ] ] [ text "Orange" ]
-        , h1 [] [ text (String.fromInt model.randRgb) ]
-        , button [ onClick UpdateNumber ] [ text "Change Number" ]
+        , h1 [ css [ color (rgb model.randRed model.randGreen model.randBlue) ] ] [ text "Orange" ]
+        , h1 [] [ text (String.fromInt model.randRed) ]
+        , button [ onClick UpdateRgbCode ] [ text "Change Number" ]
         ]
 
 
