@@ -1,14 +1,9 @@
 module Main exposing (..)
 
--- import Html exposing (Html, button, div, h1, img, text)
--- import Html.Attributes exposing (src)
--- import Html.Events exposing (onClick)
--- import Html
-
 import Browser
-import Css exposing (..)
-import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css, href, src)
+import Css exposing (Color, backgroundColor, color, fontSize, hover, margin, padding, px, rgb, textDecoration, underline)
+import Html.Styled exposing (Attribute, Html, button, div, h1, h2, img, styled, text, toUnstyled)
+import Html.Styled.Attributes exposing (css, src)
 import Html.Styled.Events exposing (onClick)
 import Random
 
@@ -58,9 +53,9 @@ update msg model =
 rgbCodeGenerator : Random.Generator Model
 rgbCodeGenerator =
     Random.map3 (\a b c -> Model a b c)
-        (Random.int 50 350)
-        (Random.int 50 350)
-        (Random.int 50 350)
+        oneTo255
+        oneTo255
+        oneTo255
 
 
 
@@ -71,9 +66,53 @@ view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
-        , h1 [ css [ color (rgb model.randRed model.randGreen model.randBlue) ] ] [ text "Orange" ]
-        , h1 [] [ text (String.fromInt model.randRed) ]
-        , button [ onClick UpdateRgbCode ] [ text "Change Number" ]
+        , h1 [ css [ color (rgb model.randRed model.randGreen model.randBlue) ] ] [ isItOrange model ]
+        , h2 [] [ text ("RGB(" ++ String.fromInt model.randRed ++ "," ++ String.fromInt model.randGreen ++ "," ++ String.fromInt model.randBlue ++ ")") ]
+        , btn [ onClick UpdateRgbCode ] [ text "Change Color" ]
+        ]
+
+
+
+-- Is the color orange !?!
+
+
+isItOrange : Model -> Html msg
+isItOrange model =
+    if model.randRed > 150 && model.randGreen < 150 && model.randBlue < 100 then
+        text "Orange!"
+
+    else
+        text "Not Orange"
+
+
+
+-- Styled Elements
+
+
+theme :
+    { primary : Color
+    , secondary : Color
+    }
+theme =
+    { primary = rgb 255 165 0 -- Orange
+    , secondary = rgb 250 240 230
+    }
+
+
+btn : List (Attribute msg) -> List (Html msg) -> Html msg
+btn =
+    styled
+        button
+        [ margin (px 34)
+        , color theme.primary
+        , backgroundColor theme.secondary
+        , fontSize (px 23)
+        , padding (px 6)
+        , hover
+            [ backgroundColor theme.primary
+            , textDecoration underline
+            , color theme.secondary
+            ]
         ]
 
 
