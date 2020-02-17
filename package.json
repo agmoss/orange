@@ -1,5 +1,21 @@
 {
+  "name": "orange",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Elm Playground",
+  "main": "server.js",
+  "repository": "https://github.com/agmoss/orange",
+  "author": "Andrew Moss",
+  "license": "MIT",
+  "scripts": {
+    "start": "serve -s build -p 8080"
+  },
   "devDependencies": {
     "elm-format": "^0.8.2"
+  },
+  "dependencies": {
+    "finalhandler": "^1.1.2",
+    "serve": "^11.3.0",
+    "serve-static": "^1.14.1"
   }
 }

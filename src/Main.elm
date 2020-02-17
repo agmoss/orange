@@ -33,9 +33,9 @@ type Msg
     | NewRgbCode Model
 
 
-oneTo255 : Random.Generator Int
-oneTo255 =
-    Random.int 1 255
+zeroTo255 : Random.Generator Int
+zeroTo255 =
+    Random.int 0 255
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -53,9 +53,9 @@ update msg model =
 rgbCodeGenerator : Random.Generator Model
 rgbCodeGenerator =
     Random.map3 (\a b c -> Model a b c)
-        oneTo255
-        oneTo255
-        oneTo255
+        zeroTo255
+        zeroTo255
+        zeroTo255
 
 
 
@@ -78,7 +78,7 @@ view model =
 
 isItOrange : Model -> Html msg
 isItOrange model =
-    if model.randRed > 150 && model.randGreen < 150 && model.randBlue < 100 then
+    if model.randRed > 150 && model.randGreen < 170 && model.randBlue < 100 then
         text "Orange!"
 
     else
