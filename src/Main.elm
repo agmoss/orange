@@ -1,9 +1,15 @@
 module Main exposing (..)
 
+-- import Html exposing (Html, button, div, h1, img, text)
+-- import Html.Attributes exposing (src)
+-- import Html.Events exposing (onClick)
+-- import Html
+
 import Browser
-import Html exposing (Html, button, div, h1, img, text)
-import Html.Attributes exposing (src)
-import Html.Events exposing (onClick)
+import Css exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (css, href, src)
+import Html.Styled.Events exposing (onClick)
 import Random
 
 
@@ -52,7 +58,7 @@ view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Orange" ]
+        , h1 [ css [ color (rgb model.randRgb 250 250) ] ] [ text "Orange" ]
         , h1 [] [ text (String.fromInt model.randRgb) ]
         , button [ onClick UpdateNumber ] [ text "Change Number" ]
         ]
@@ -74,7 +80,7 @@ subscriptions model =
 main : Program () Model Msg
 main =
     Browser.element
-        { view = view
+        { view = view >> toUnstyled
         , init = init
         , update = update
         , subscriptions = subscriptions
