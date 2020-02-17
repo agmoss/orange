@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Browser
 import Css exposing (Color, backgroundColor, color, fontSize, hover, margin, padding, px, rgb, textDecoration, underline)
@@ -21,7 +21,7 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model 1 1 1, Cmd.none )
+    ( Model 255 165 0, Cmd.none )
 
 
 
