@@ -13,6 +13,10 @@
   <a href="https://github.com/agmoss">Andrew Moss</a>
 </div>
 
+<div align="center">
+  <a href="https://orangeelm.azurewebsites.net">View Live</a>
+</div>
+
 # Elm App
 
 This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).
@@ -234,10 +238,10 @@ In the following example we will use JavaScript to write a log in the console, e
 import { Elm } from "./Main.elm";
 
 const app = Elm.Main.init({
-  node: document.getElementById("root")
+  node: document.getElementById("root"),
 });
 
-app.ports.logger.subscribe(message => {
+app.ports.logger.subscribe((message) => {
   console.log("Port emitted a new message: " + message);
 });
 ```
@@ -645,7 +649,7 @@ import { Main } from "./Main.elm";
 
 Main.fullscreen({
   environment: process.env.NODE_ENV,
-  apiKey: process.env.ELM_APP_API_KEY
+  apiKey: process.env.ELM_APP_API_KEY,
 });
 ```
 
@@ -794,7 +798,7 @@ module.exports = {
   configureWebpack: (config, env) => {
     // Manipulate the config object and return it.
     return config;
-  }
+  },
 };
 ```
 
@@ -821,9 +825,9 @@ Next, create `elmapp.config.js` in the root of your project and place the follow
 const proxy = require("http-proxy-middleware");
 
 module.exports = {
-  setupProxy: function(app) {
+  setupProxy: function (app) {
     // ...
-  }
+  },
 };
 ```
 
@@ -833,9 +837,9 @@ You can now register proxies as you wish! Here's an example using the above http
 const proxy = require("http-proxy-middleware");
 
 module.exports = {
-  setupProxy: function(app) {
+  setupProxy: function (app) {
     app.use(proxy("/api", { target: "http://localhost:5000/" }));
-  }
+  },
 };
 ```
 
@@ -851,7 +855,7 @@ To override this, specify the `homepage` in your `elmapp.config.js`, for example
 
 ```js
 module.exports = {
-  homepage: "http://mywebsite.com/relativepath"
+  homepage: "http://mywebsite.com/relativepath",
 };
 ```
 
@@ -916,7 +920,7 @@ Open your `elmapp.config.js` and add a `homepage` field:
 
 ```js
 module.exports = {
-  homepage: "https://myusername.github.io/my-app"
+  homepage: "https://myusername.github.io/my-app",
 };
 ```
 
